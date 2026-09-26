@@ -97,7 +97,7 @@ The final technologies will be added once the team confirms the implementation.
 
 DEPI Graduation Project Team
 
-Team Members: [Anas - Kareem Mohammed - Ahmed - Mariam - Sandy]
+Team Members: [Anas - Kareem Mohammed - Ahmed Mohammed - Mariam Wael - Sandy Moussa]
 
 ## 📌 Project Status
 
