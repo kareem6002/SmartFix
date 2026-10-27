@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SmartFix Egypt</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;background:#F6F4EE;color:#1B1F1D;font-size:14px;line-height:1.45}
+button{font-family:inherit}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #2F47D6;outline-offset:2px}
+.c{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,32px)}
+.nav{background:#FCFBF7;border-bottom:1px solid #E4E1D8}.nav .c{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;min-height:68px;gap:12px;padding-top:8px;padding-bottom:8px}
+.logo{display:flex;align-items:center;gap:10px;font-size:20px}.lg{width:36px;height:36px;background:#173B31;border-radius:6px;display:grid;place-items:center}
+.seg{display:flex;gap:4px;border:1px solid #E4E1D8;padding:4px;border-radius:8px;background:#fff}.seg button{border:0;background:transparent;font-family:inherit;cursor:pointer;min-height:44px;display:flex;align-items:center;padding:0 14px;border-radius:6px;color:#4F5551;font-size:13px}.seg button.on{background:#173B31;color:#fff}
+.usr{display:flex;gap:12px;align-items:center;text-align:right;font-size:12px}.av{width:40px;height:40px;border-radius:50%;background:#DDEBE3;color:#173B31;display:grid;place-items:center;font-weight:600;font-size:13px;flex:none}
+.card{background:#fff;border:1px solid #E4E1D8;border-radius:10px;padding:20px}.dk{background:#173B31;color:#fff;border-radius:10px;padding:24px}.dk .mu{color:#BFD3C8}
+button.card{text-align:left;cursor:pointer;color:inherit;font:inherit;display:block;width:100%}button.card.on{border-color:#173B31;box-shadow:0 0 0 2px #173B31}
+.g{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.two{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start}.two>.m{flex:2 1 520px;min-width:0}.two>.s{flex:1 1 280px;min-width:0}
+h1{font-size:clamp(28px,4vw,40px);font-weight:500;margin:4px 0 0;letter-spacing:-.5px}.h2{font-size:22px;font-weight:600;margin:0}.mu{color:#5C625E;font-size:12px}.eb{font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:#5C625E}
+.btn{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 18px;background:#2F47D6;color:#fff;border-radius:6px;border:0;font:600 13px Inter,sans-serif;cursor:pointer}.btn.o{background:#fff;color:#1B1F1D;border:1px solid #D5D2C8}.btn:disabled{opacity:.5;cursor:not-allowed}
+.chip{min-height:44px;padding:0 14px;border:1px solid #D5D2C8;background:#fff;border-radius:99px;font:500 13px Inter,sans-serif;cursor:pointer;color:#1B1F1D}.chip.on{background:#173B31;color:#fff;border-color:#173B31}.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 16px}
+.bd{font-size:11px;padding:4px 10px;border-radius:99px;font-weight:500;white-space:nowrap}.ip{background:#F8EBDD;color:#8A4B12}.cf{background:#E6EBFB;color:#2A3FB3}.cp{background:#E4EFE8;color:#1F5A3C}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.sec{margin-top:44px}.sec>.row{margin-bottom:16px}
+.bar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px;font-size:11px;color:#5C625E}.bar i{display:block;height:3px;background:#DAD7CD;margin-bottom:6px}.bar i.f{background:#173B31}
+.big{font-size:32px;font-weight:500;margin-top:10px}.tg{width:44px;height:26px;border-radius:99px;background:#fff;position:relative;border:0;cursor:pointer}.tg i{position:absolute;right:4px;top:4px;width:18px;height:18px;border-radius:50%;background:#173B31}.tg.off{background:#7F988E}.tg.off i{right:auto;left:4px;background:#fff}
+.ln{border-top:1px solid #E4E1D8;padding-top:14px;margin-top:14px}.dk .ln{border-color:#2F5649}.ft{padding:28px 0;font-size:12px;color:#5C625E;margin-top:44px}
+.ph{flex:1 1 300px;min-height:280px;background:#E3D9C6;color:#5C5545;display:grid;place-items:center;font-size:12px;text-align:center;padding:16px}.cat .mu{margin-top:2px}.up{text-transform:uppercase}
+.ov{position:fixed;inset:0;background:rgba(23,59,49,.6);display:grid;place-items:center;padding:16px;z-index:50}.mod{background:#fff;border-radius:12px;padding:24px;width:min(480px,100%);max-height:90vh;overflow:auto}
+.inp{width:100%;min-height:44px;border:1px solid #D5D2C8;border-radius:6px;padding:10px 12px;font:14px Inter,sans-serif;background:#fff;color:#1B1F1D}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;background:#1B1F1D;color:#fff;padding:12px 18px;border-radius:8px;z-index:60;font-size:13px;max-width:90vw}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+
+const $app=document.getElementById('app');
+const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=n=>'EGP '+n.toLocaleString('en-US');
+const LOGO='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5 5L3 18l3 3 6.7-6.7a4 4 0 0 0 5-5l-2.5 2.5-2.4-.6-.6-2.4z"/></svg>';
+const CATS=[['Plumbing','Leaks & Faucets'],['Electricity','Wiring & Outlets'],['AC Repair','Cooling & Gas'],['Painting','Interior & Walls'],['Carpentry','Doors & Wood'],['Appliances','Washers & Fridges']];
+const TECHS=[['MA','Plumbing','Mahmoud Al-Masry','8 Years Exp · Nasr City, Cairo','★ 4.9 · 142 jobs',300],['IH','Electricity','Ibrahim Hassan','6 Years Exp · Dokki, Giza','★ 4.8 · 98 jobs',350],['TN','AC Repair','Tarek Nour','10 Years Exp · Sheikh Zayed','★ 4.95 · 215 jobs',400],['KM','Painting','Khaled Mansour','5 Years Exp · New Cairo','★ 4.7 · 64 jobs',250],['YA','Carpentry','Youssef Adel','9 Years Exp · Maadi, Cairo','★ 4.8 · 87 jobs',280],['HL','Appliances','Hany Lotfy','7 Years Exp · Mohandesin, Giza','★ 4.6 · 71 jobs',260]];
+const SAMPLES=[['Leaking pipe under sink','Plumbing','Mahmoud Al-Masry'],['Sparking wall outlet','Electricity','Ibrahim Hassan'],['AC not cooling','AC Repair','Tarek Nour'],['Peeling wall paint','Painting','Khaled Mansour']];
+const SLOTS={Morning:'Morning (10 AM – 1 PM)',Afternoon:'Afternoon (2 PM – 5 PM)',Evening:'Evening (6 PM – 9 PM)'};
+const BD={'Placed':'cf','Requested':'ip','Confirmed':'cf','In Progress':'ip','Completed':'cp'};
+const USERS={c:['Ahmed M. (Sheikh Zayed)','Customer Account'],t:['Mahmoud Al-Masry','Verified Technician Portal'],a:['System Admin','Super Admin Access']};
+const S={portal:'c',modal:'',toast:'',
+jobs:[{id:'#SF-201',cat:'Plumbing',title:'Leaking PVC pipe under kitchen sink',st:'In Progress',n:3,meta:'Ahmed M. · Assigned Expert: Mahmoud Al-Masry',when:'2026-06-10 · Morning (10 AM – 1 PM) · 14 Tahrir St, Sheikh Zayed',price:350,end:'Technician en route / working…'},
+{id:'#SF-202',cat:'Electricity',title:'Sparking wall outlet in living room',st:'Confirmed',n:2,meta:'Sara Youssef · Assigned Expert: Ibrahim Hassan',when:'2026-06-12 · Afternoon (2 PM – 5 PM) · 22 Mohandesin, Giza',price:450,end:'Technician en route / working…'},
+{id:'#SF-203',cat:'AC Repair',title:'Split AC not cooling properly',st:'Completed',n:4,meta:'Karim Fathy · Assigned Expert: Tarek Nour',when:'2026-06-08 · Evening (6 PM – 9 PM) · 5 Maadi, Cairo',price:600,end:'★★★★★ “Fantastic work and very professional!”'}],
+cat:'All Specialties',bCat:'Plumbing',bTech:'Any available pro',bSlot:'Morning',bNote:'',ai:-1,
+tjobs:[{id:'#SF-201',cat:'Plumbing',title:'Leaking PVC pipe under kitchen sink',st:'In Progress',meta:'Ahmed M. · Assigned Expert: Mahmoud Al-Masry',when:'2026-06-10 · Morning (10 AM – 1 PM) · 14 Tahrir St, Sheikh Zayed',price:350},
+{id:'#SF-202',cat:'Electricity',title:'Sparking wall outlet in living room',st:'Confirmed',meta:'Sara Youssef · Assigned Expert: Ibrahim Hassan',when:'2026-06-12 · Afternoon (2 PM – 5 PM) · 22 Mohandesin, Giza',price:450},
+{id:'#SF-203',cat:'AC Repair',title:'Split AC not cooling properly',st:'Completed',meta:'Karim Fathy · Assigned Expert: Tarek Nour',when:'2026-06-08 · Evening (6 PM – 9 PM) · 5 Maadi, Cairo',price:600},
+{id:'#SF-204',cat:'Plumbing',title:'Replace bathroom mixer tap',st:'Requested',meta:'Nour Hamed · New request',when:'2026-06-13 · Morning (9 AM – 12 PM) · 8 Zamalek, Cairo',price:400}],
+online:true,paid:0,done:0,earn:0,method:'Vodafone Cash',
+verified:348,q:[{ini:'MK',name:'Mostafa Kamal',spec:'Carpentry',exp:'12 Years',loc:'Heliopolis, Cairo',rating:'★ 4.9 · 180 jobs',rate:350},{ini:'NS',name:'Nadia Salem',spec:'Electricity',exp:'7 Years',loc:'Nasr City, Cairo',rating:'★ 4.8 · 96 jobs',rate:300}],
+tk:[{id:409,open:true,title:'Schedule adjustment request - Giza',body:'Customer requested rescheduling electrical repair to evening.'},{id:408,open:false,title:'Invoice confirmation - Alexandria',body:'AC repair payment successfully cleared via Instapay.'}]};
+let timer;
+function say(m){S.toast=m;render();clearTimeout(timer);timer=setTimeout(()=>{S.toast='';render();},3500);}
+const chips=(list,cur,act)=>list.map(n=>`<button class="chip ${cur===n?'on':''}" data-a="${act}" data-v="${esc(n)}">${esc(n)}</button>`).join('');
+const nav=()=>`<header class="nav"><div class="c"><div class="logo"><span class="lg">${LOGO}</span><span>SmartFix</span><span class="mu">EGYPT</span></div><nav class="seg" aria-label="Portal">${[['c','Customer'],['t','Technician'],['a','Admin']].map(p=>`<button class="${S.portal===p[0]?'on':''}" data-a="portal" data-v="${p[0]}">${p[1]}</button>`).join('')}</nav><div class="usr"><div><b>${USERS[S.portal][0]}</b><div class="mu">${USERS[S.portal][1]}</div></div><span class="av">AM</span></div></div></header>`;
+const FT='<footer class="ft"><div class="c row"><span><b>SmartFix Egypt</b> · Home, in good hands.</span><span>Cairo · Giza · Alexandria</span></div></footer>';
+function customer(){
+const jobs=S.jobs.map(j=>`<div class="card" style="margin-top:14px"><div class="row"><span class="mu">${j.id} &nbsp;|&nbsp; <b style="color:#1B1F1D">${esc(j.cat)}</b></span><span class="bd ${BD[j.st]}">${j.st}</span></div><h3 style="font-size:17px;margin:10px 0 4px;font-weight:600">${esc(j.title)}</h3><div class="mu">${esc(j.meta)}</div><div class="mu">${esc(j.when)}</div><div class="bar">${['Placed','Assigned','In Progress','Completed'].map((l,i)=>`<div><i class="${i<j.n?'f':''}"></i>${l}</div>`).join('')}</div><div class="row ln"><b>${j.price?fmt(j.price):'Price on quote'}</b><span class="mu">${esc(j.end)}</span></div></div>`).join('');
+const techs=TECHS.map((t,i)=>[t,i]).filter(x=>S.cat==='All Specialties'||x[0][1]===S.cat).map(([t,i])=>`<div class="card"><div class="row"><span class="av" style="border-radius:6px">${t[0]}</span><span class="mu">● Verified</span></div><div class="eb" style="margin-top:14px">${t[1]}</div><b style="font-size:16px">${t[2]}</b><div class="mu">${t[3]}</div><div class="mu">${t[4]}</div><div class="row ln"><span><span class="mu">Starting rate</span><br><b>${fmt(t[5])} / hr</b></span><button class="btn o" data-a="bookPro" data-v="${i}">Book Pro</button></div></div>`).join('');
+return `<main class="c" style="padding-top:24px"><div class="row"><span>Welcome home, Ahmed.</span><span class="mu">Sheikh Zayed, Egypt</span></div>
+<section class="dk" style="margin-top:20px;padding:0;display:flex;flex-wrap:wrap;overflow:hidden"><div style="flex:1 1 360px;padding:clamp(24px,5vw,48px) clamp(20px,4vw,40px)"><div class="eb" style="color:#BFD3C8">AI Smart Diagnosis Engine</div><h1 style="font-weight:600;margin:16px 0">Trusted Home Repairs in Egypt, Booked in 60 Seconds</h1><p class="mu" style="font-size:14px;max-width:460px">Skip the hassle of calling around. Snap a picture of your repair problem or pick a sample below for instant AI categorization and expert matching.</p><button class="btn" style="margin-top:12px" data-a="openAi">Snap Photo for AI Diagnosis</button></div><div class="ph">Photo placeholder: warm kitchen with sink and shelves</div></section>
+<section class="sec"><div class="row"><h2 class="h2">Browse Service Categories</h2><span class="mu">Tap a category to filter the catalog below.</span></div><div class="g" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">${CATS.map(c=>`<button class="card cat ${S.cat===c[0]?'on':''}" data-a="catCard" data-v="${c[0]}"><b>${c[0]}</b><div class="mu">${c[1].replace('&','&amp;')}</div></button>`).join('')}</div></section>
+<section class="sec two"><div class="m"><div class="row"><div><h2 class="h2">Your Active Service Tracker</h2><div class="mu">Follow your repair request from booking to completion.</div></div><button class="btn" data-a="openBook">+ Book Repair</button></div>${jobs}</div>
+<aside class="s"><div class="dk"><h2 class="h2" style="font-size:24px">The SmartFix Guarantee</h2><div class="ln"><b>Strict Vetting</b><div class="mu">All technicians undergo rigorous background and syndicate checks.</div></div><div class="ln"><b>Transparent Pricing</b><div class="mu">Pay fair rates in Egyptian Pounds (EGP) with zero hidden fees.</div></div><div class="ln"><b>30-Day Guarantee</b><div class="mu">Quality workmanship warranty on all home repair jobs.</div></div></div>
+<div class="card" style="margin-top:16px"><b style="font-size:16px">Need Urgent Help?</b><div class="mu">Our emergency dispatch team is available 24/7 across Cairo and Giza.</div><div class="row" style="margin-top:14px"><a href="tel:19888" style="font-size:30px;color:#1B1F1D;text-decoration:none">19888</a><span class="mu">● Active 24/7</span></div></div></aside></section>
+<section class="sec"><div class="row"><div><h2 class="h2">Verified Technicians Catalog</h2><div class="mu">Background-checked experts with real customer reviews.</div></div><select aria-label="Specialty" class="inp" style="width:auto" data-a="setCat">${['All Specialties',...CATS.map(c=>c[0])].map(n=>`<option${S.cat===n?' selected':''}>${n}</option>`).join('')}</select></div><div class="g" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">${techs}</div></section></main>${FT}`;}
+function tech(){
+const f=S.earn+3850,av=f-S.paid;
+const jobs=S.tjobs.map(j=>`<div class="card" style="margin-top:14px"><div class="row"><span class="mu">${j.id} &nbsp;|&nbsp; <b style="color:#1B1F1D">${esc(j.cat)}</b></span><span class="bd ${BD[j.st]}">${j.st}</span></div><h3 style="font-size:17px;margin:10px 0 4px;font-weight:600">${esc(j.title)}</h3><div class="mu">${esc(j.meta)}</div><div class="mu">${esc(j.when)}</div><div class="row ln"><b>${fmt(j.price)}</b><span style="display:flex;gap:8px;flex-wrap:wrap">${j.st==='Requested'?`<button class="btn o" data-a="decline" data-v="${j.id}">Decline</button><button class="btn" data-a="accept" data-v="${j.id}">Accept</button>`:j.st==='Confirmed'?`<button class="btn" data-a="start" data-v="${j.id}">Start Job</button>`:j.st==='In Progress'?`<button class="btn" data-a="complete" data-v="${j.id}">Mark Complete</button>`:'<span class="mu">✓ Completed</span>'}</span></div></div>`).join('');
+return `<main class="c" style="padding-top:28px"><div class="row" style="align-items:flex-end"><div><div class="eb">Technician Workspace</div><h1>Good work starts here.</h1></div><span class="mu">Your jobs, schedule, and earnings — in one place.</span></div>
+<section class="dk" style="margin-top:20px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between"><div style="display:flex;gap:20px;align-items:center"><span class="av" style="width:72px;height:72px;border-radius:6px;background:#fff;font-size:22px;font-weight:400">MA</span><div><span style="font-size:24px;font-weight:500">Mahmoud Al-Masry</span> <span class="mu">✓ Verified Pro</span><div class="mu">Master Plumber &amp; Pipe Specialist</div><div class="mu">8 Years Exp · Nasr City, Cairo</div></div></div><div><div class="eb" style="color:#BFD3C8">Availability</div><div style="display:flex;gap:10px;align-items:center;margin-top:6px"><button class="tg ${S.online?'':'off'}" role="switch" aria-checked="${S.online}" aria-label="Availability" data-a="toggle"><i></i></button>${S.online?'Online &amp; Ready':'Offline'}</div></div></section>
+<div class="g" style="margin-top:16px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))"><div class="card"><span class="mu">Weekly Earnings</span><div class="big">${fmt(f)}</div></div><div class="card"><span class="mu">Completed Jobs</span><div class="big">${38+S.done}</div></div><div class="card"><span class="mu">Rating</span><div class="big">4.9 ★</div></div></div>
+<section class="sec two"><div class="m"><h2 class="h2">Incoming Job Requests &amp; Active Queue</h2><div class="mu">Review customer orders, accept requests, and update job progress.</div>${jobs}</div>
+<aside class="s"><div class="card"><h2 class="h2" style="font-size:18px">Today’s Schedule</h2><div class="ln"><div class="row"><b style="font-size:18px;font-weight:500">10:00 AM</b><span class="bd cf">Confirmed</span></div><b>Kitchen Sink Pipe</b><div class="mu">Heliopolis, Cairo</div></div><div class="ln"><div class="row"><b style="font-size:18px;font-weight:500">02:30 PM</b><span class="bd cp">Scheduled</span></div><b>Faucet Replacement</b><div class="mu">Nasr City, Cairo</div></div></div>
+<div class="dk" style="margin-top:16px"><h2 class="h2" style="font-size:18px">Instant Payouts</h2><p class="mu">Withdraw earnings instantly via Vodafone Cash, Instapay, or Bank Transfer.</p><div class="ln"><span class="mu">Available to withdraw</span><div style="font-size:24px">${fmt(av)}</div></div><button class="btn" style="margin-top:14px" data-a="openPay">Withdraw Earnings Now</button></div></aside></section></main>${FT}`;}
+function admin(){
+const cur=S.q[0],open=S.tk.filter(t=>t.open).length;
+return `<main class="c" style="padding-top:28px"><div class="row" style="align-items:flex-end"><div><div class="eb">Administration</div><h1>A clear view of SmartFix.</h1></div><span class="mu">Super Admin Access</span></div>
+<div class="g" style="margin-top:20px"><div class="card"><span class="mu">Total Active Users</span><div class="big">1,842</div><div class="mu">↑ 22% this month</div></div><div class="card"><span class="mu">Verified Technicians</span><div class="big">${S.verified}</div><div class="mu">${S.q.length} pending approval</div></div><div class="card"><span class="mu">Completed Jobs</span><div class="big">3,420</div><div class="mu">Across 4 governorates</div></div><div class="dk"><span class="mu">Platform Revenue</span><div class="big">EGP 94.2K</div><div class="mu">10% commission model</div></div></div>
+<div class="two" style="margin-top:20px"><section class="card m" style="padding:clamp(18px,3vw,28px)"><h2 class="h2">Technician Verification Queue</h2><div class="mu">Approve new professional signups after background checks.</div>${cur?`<div class="card" style="margin-top:20px"><div style="display:flex;gap:14px;align-items:center"><span class="av" style="width:56px;height:56px;border-radius:6px">${cur.ini}</span><div><b style="font-size:18px">${cur.name}</b><div class="mu">${cur.spec}</div></div></div><div class="row ln" style="justify-content:flex-start;gap:48px"><div><div class="eb">Experience</div>${cur.exp}</div><div><div class="eb">Location</div>${cur.loc}</div></div><div class="row" style="margin-top:12px"><span class="mu">${cur.rating}</span><b>${fmt(cur.rate)} / hr</b></div><div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap"><button class="btn" data-a="approve">✓ Approve</button><button class="btn o" data-a="reject">✕ Reject</button></div></div>`:`<div class="card" style="margin-top:20px;background:#E4EFE8;border-color:#CFE0D6"><b>Queue clear</b><div class="mu">No technicians are waiting for approval.</div></div>`}<div class="mu" style="margin-top:16px">Strict vetting keeps every SmartFix home in good hands.</div></section>
+<section class="card s" style="padding:clamp(18px,3vw,28px);flex-basis:380px"><h2 class="h2">Dispute Center &amp; Support Tickets</h2><div class="mu">${open} active support inquiries and quality assurance flags.</div>${S.tk.map(t=>`<div class="ln" style="margin-top:20px"><div class="row"><span class="eb">Ticket #${t.id}</span><span class="bd ${t.open?'ip':'cp'}">${t.open?'Needs attention':'Closed'}</span></div><b style="font-size:16px">${t.title}</b><div class="mu">${t.body}</div>${t.open?`<button class="btn" style="margin-top:12px" data-a="resolve" data-v="${t.id}">Resolve</button>`:''}</div>`).join('')}</section></div>
+<div class="card" style="margin-top:20px;background:#E4EFE8;border-color:#CFE0D6"><div class="row"><span><b>Trusted home repairs. Shared standards.</b><div class="mu" style="color:#41564B">Strict vetting · Transparent pricing · 30-Day Guarantee</div></span><b>SmartFix Egypt</b></div></div></main>${FT}`;}
+function modals(){
+const head=(t)=>`<div class="row"><h2 class="h2">${t}</h2><button class="btn o" aria-label="Close" data-a="close">✕</button></div>`;
+if(S.modal==='book')return `<div class="ov" data-a="overlay"><div class="mod" role="dialog" aria-modal="true" aria-label="Book a repair">${head('Book a repair')}<div class="mu" style="margin-top:6px">Professional: <b>${esc(S.bTech)}</b></div><div class="eb" style="margin-top:16px">Service</div><div class="chips">${chips(CATS.map(c=>c[0]),S.bCat,'bCat')}</div><div class="eb">Time slot</div><div class="chips">${chips(Object.keys(SLOTS),S.bSlot,'bSlot')}</div><label class="eb" for="note">Describe the problem</label><textarea id="note" class="inp" rows="3" style="margin:8px 0 16px">${esc(S.bNote)}</textarea><div class="row" style="justify-content:flex-end"><button class="btn o" data-a="close">Cancel</button><button class="btn" data-a="confirm">Confirm booking</button></div></div></div>`;
+if(S.modal==='ai'){const a=S.ai>=0?SAMPLES[S.ai]:null;return `<div class="ov" data-a="overlay"><div class="mod" role="dialog" aria-modal="true" aria-label="AI diagnosis">${head('AI Smart Diagnosis')}<p class="mu">Prototype: photo analysis is simulated. Upload a photo or pick a sample problem.</p><label class="eb" for="photo">Upload a photo</label><input id="photo" class="inp" style="margin:8px 0 16px" type="file" accept="image/*" data-a="photo"><div class="eb">Or pick a sample</div><div class="chips">${SAMPLES.map((x,i)=>`<button class="chip ${S.ai===i?'on':''}" data-a="sample" data-v="${i}">${x[0]}</button>`).join('')}</div>${a?`<div class="card" style="background:#E4EFE8;border-color:#CFE0D6"><div class="eb">Suggested category</div><b style="font-size:18px">${a[1]}</b><div class="mu">Best match: ${a[2]}</div><button class="btn" style="margin-top:12px" data-a="bookAi">Book this pro</button></div>`:''}</div></div>`;}
+if(S.modal==='pay'){const av=S.earn+3850-S.paid;return `<div class="ov" data-a="overlay"><div class="mod" role="dialog" aria-modal="true" aria-label="Withdraw earnings">${head('Withdraw earnings')}<div class="mu" style="margin-top:6px">Available: <b>${fmt(av)}</b></div><div class="eb" style="margin-top:16px">Method</div><div class="chips">${chips(['Vodafone Cash','Instapay','Bank Transfer'],S.method,'method')}</div><div class="row" style="justify-content:flex-end"><button class="btn o" data-a="close">Cancel</button><button class="btn" data-a="withdraw">Confirm withdrawal</button></div></div></div>`;}
+return '';}
+function render(){
+const y=window.scrollY;
+$app.innerHTML=nav()+(S.portal==='c'?customer():S.portal==='t'?tech():admin())+modals()+(S.toast?`<div class="toast" role="status">${esc(S.toast)}</div>`:'');
+window.scrollTo(0,y);}
+const tset=(id,st)=>{S.tjobs=S.tjobs.map(j=>j.id===id?{...j,st}:j);};
+const ACT={
+portal:v=>{S.portal=v;S.modal='';render();window.scrollTo(0,0);},
+catCard:v=>{S.cat=S.cat===v?'All Specialties':v;render();},
+openAi:()=>{S.modal='ai';S.ai=-1;render();},
+openBook:()=>{S.modal='book';S.bTech='Any available pro';S.bNote='';render();},
+bookPro:v=>{const t=TECHS[+v];S.modal='book';S.bTech=t[2];S.bCat=t[1];S.bNote='';render();},
+close:()=>{S.modal='';render();},overlay:()=>{},
+bCat:v=>{S.bCat=v;render();},bSlot:v=>{S.bSlot=v;render();},
+sample:v=>{S.ai=+v;render();},
+bookAi:()=>{const a=SAMPLES[S.ai];S.modal='book';S.bTech=a[2];S.bCat=a[1];S.bNote=a[0];render();},
+confirm:()=>{const n=S.jobs.length+204;S.jobs=[{id:'#SF-'+n,cat:S.bCat,title:S.bNote||S.bCat+' repair request',st:'Placed',n:1,meta:'Ahmed M. · Expert: '+S.bTech,when:'Next available · '+SLOTS[S.bSlot]+' · Sheikh Zayed',price:0,end:'Waiting for technician confirmation'},...S.jobs];S.modal='';S.bNote='';say('Repair booked. We will confirm a technician shortly.');},
+toggle:()=>{S.online=!S.online;say(S.online?'You are online and ready for jobs.':'You are offline. New requests are paused.');},
+accept:v=>{tset(v,'Confirmed');say('Request accepted. It is now in your queue.');},
+decline:v=>{S.tjobs=S.tjobs.filter(j=>j.id!==v);say('Request declined.');},
+start:v=>{tset(v,'In Progress');say('Job started. The customer has been notified.');},
+complete:v=>{const j=S.tjobs.find(x=>x.id===v);tset(v,'Completed');S.done++;S.earn+=j.price;say('Job completed. '+fmt(j.price)+' added to your earnings.');},
+openPay:()=>{S.modal='pay';render();},method:v=>{S.method=v;render();},
+withdraw:()=>{const av=S.earn+3850-S.paid;if(av<=0){say('Nothing to withdraw yet.');return;}S.paid+=av;S.modal='';say(fmt(av)+' sent via '+S.method+'.');},
+approve:()=>{const c=S.q[0];S.verified++;S.q=S.q.slice(1);say(c.name+' approved and added to the catalog.');},
+reject:()=>{const c=S.q[0];S.q=S.q.slice(1);say(c.name+' rejected.');},
+resolve:v=>{S.tk=S.tk.map(t=>t.id==v?{...t,open:false}:t);say('Ticket #'+v+' resolved.');}};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b||b.tagName==='SELECT'||b.tagName==='INPUT')return;
+if(b.dataset.a==='overlay'&&e.target!==b)return;if(b.dataset.a==='overlay'){ACT.close();return;}
+const f=ACT[b.dataset.a];if(f)f(b.dataset.v);});
+document.addEventListener('change',e=>{const a=e.target.dataset.a;if(a==='setCat'){S.cat=e.target.value;render();}if(a==='photo'){S.ai=0;render();say('Photo received. Analysis simulated in this prototype.');}});
+document.addEventListener('input',e=>{if(e.target.id==='note')S.bNote=e.target.value;});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&S.modal)ACT.close();});
+render();
+
+</script>
+</body>
+</html>
