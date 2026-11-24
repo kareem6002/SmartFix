@@ -1,0 +1,111 @@
+/* =========================================================
+   Comic-book guide overlay
+   ========================================================= */
+.comic-overlay{position:fixed;inset:0;z-index:2000;display:grid;place-items:center;padding:12px;background:rgba(8,12,40,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:cfade .25s ease-out}
+@keyframes cfade{from{opacity:0}to{opacity:1}}
+.comic-book{width:min(1040px,100%);max-height:100%;display:flex;flex-direction:column;gap:10px;min-height:0}
+.comic-top{display:flex;align-items:center;justify-content:space-between;gap:.75rem;color:#fff;font:400 1.35rem/1 'Bangers','Lalezar',system-ui,sans-serif;letter-spacing:.05em}
+.comic-series b{color:#ffd23f;font-weight:400;margin-inline-start:.5rem}
+.comic-skip{border:3px solid #111;background:#fff;color:#111;border-radius:10px;padding:.4rem 1rem;font:400 1.1rem/1 'Bangers','Lalezar',system-ui,sans-serif;letter-spacing:.05em;box-shadow:4px 4px 0 #111;cursor:pointer;transition:transform .12s,box-shadow .12s}
+.comic-skip:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 #111}.comic-skip:active{transform:translate(3px,3px);box-shadow:1px 1px 0 #111}
+.comic-stage{perspective:1800px;overflow:auto;min-height:0;flex:1;padding:2px 10px 12px 2px}
+
+.cpage{--flip:-78deg;position:relative;background-color:#fff9e6;background-image:radial-gradient(#eadfbd 1.4px,transparent 1.7px);background-size:13px 13px;border:5px solid #111;box-shadow:10px 10px 0 #111;padding:14px 14px 16px;transform-origin:left center;animation:cflip .6s cubic-bezier(.2,.8,.2,1) both}
+[dir=rtl] .cpage{transform-origin:right center;box-shadow:-10px 10px 0 #111}
+@keyframes cflip{from{transform:rotateY(var(--flip));opacity:0}to{transform:none;opacity:1}}
+.ctitle{display:inline-block;margin:0 0 12px;padding:.3rem 1.1rem .15rem;background:#e63946;color:#fff;border:4px solid #111;box-shadow:5px 5px 0 #111;font:400 clamp(1.5rem,3.2vw,2.2rem)/1.15 'Bangers','Lalezar',system-ui,sans-serif;letter-spacing:.04em;text-shadow:2px 2px 0 #111;transform:rotate(-1.2deg)}
+[dir=rtl] .ctitle{font-family:'Lalezar','Cairo',sans-serif;letter-spacing:0;transform:rotate(1.2deg);padding-top:.1rem}
+
+.cgrid{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:minmax(250px,auto);gap:12px}
+.LA .cgrid{grid-template-areas:"p1 p1" "p2 p3"}
+.LB .cgrid{grid-template-areas:"p1 p2" "p1 p3"}
+.LC .cgrid{grid-template-areas:"p1 p2" "p3 p3"}
+
+/* ---------- panels ---------- */
+.cpanel{--pc:#ffd23f;--ch:236px;position:relative;direction:ltr;display:flex;align-items:stretch;overflow:hidden;border:4px solid #111;background-color:var(--pc);
+  background-image:radial-gradient(circle at 28% 18%,rgba(255,255,255,.55),transparent 55%),radial-gradient(rgba(0,0,0,.15) 1.3px,transparent 1.6px);background-size:auto,11px 11px}
+.bg-sun{--pc:#ffd23f}.bg-sky{--pc:#6ec6ff}.bg-rose{--pc:#ff8fab}.bg-mint{--pc:#8ee3b0}.bg-lilac{--pc:#c4a7ff}.bg-peach{--pc:#ffb47a}
+.cpanel.side-right{flex-direction:row-reverse}
+.cpanel.big{--ch:360px}
+.cchar{flex:0 0 40%;display:flex;align-items:flex-end;justify-content:center;min-width:0}
+.cchar img{display:block;height:var(--ch);width:auto;max-width:118%;flex:none;user-select:none;pointer-events:none;
+  filter:drop-shadow(2px 0 0 #111) drop-shadow(-2px 0 0 #111) drop-shadow(0 2px 0 #111) drop-shadow(0 -2px 0 #111) drop-shadow(5px 6px 0 rgba(0,0,0,.28))}
+.ctext{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:.75rem;padding:1.1rem 1rem}
+.cpanel.has-cap .ctext{padding-top:2.7rem}
+
+.cpanel.scene{align-items:flex-end;min-height:310px;background:#111 url(/art/team.webp) center 28%/cover}
+.cpanel.scene::before{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(5,8,30,.72),transparent 58%)}
+.cpanel.scene .ctext{position:relative;width:100%;direction:ltr;align-items:flex-start;padding:1rem 1.2rem 1.1rem}   /* bubble always sits under Sam/Mona on the left, in both languages */
+.cpanel.scene .cbubble{max-width:min(560px,92%)}
+.cpanel.scene .cdemo{background:rgba(255,255,255,.92);border:3px solid #111;border-radius:12px;padding:.45rem .7rem}
+
+.cpanel.duo{display:grid;grid-template-columns:minmax(0,25%) minmax(0,1fr) minmax(0,25%);align-items:end;min-height:270px}
+.cpanel.duo .cchar{align-self:end}.cpanel.duo .ctext{align-self:center;padding:1.2rem .4rem}
+.cpanel.duo.has-cap .ctext{padding-top:1.2rem}
+
+/* ---------- speech bubbles, captions, bursts ---------- */
+.cbubble{position:relative;margin:0;background:#fff;color:#111;border:3px solid #111;border-radius:20px;padding:.7rem 1rem;box-shadow:3px 3px 0 rgba(0,0,0,.85);
+  font:700 clamp(.92rem,1.3vw,1.06rem)/1.42 'Comic Neue','Cairo',system-ui,sans-serif}
+[dir=rtl] .cbubble{font-family:'Cairo','Comic Neue',system-ui,sans-serif;font-weight:700;line-height:1.65}
+.cbubble::after{content:'';position:absolute;width:16px;height:16px;background:#fff;border-right:3px solid #111;border-bottom:3px solid #111}
+.tail-left::after{left:-10px;top:42%;transform:rotate(135deg)}
+.tail-right::after{right:-10px;top:42%;transform:rotate(-45deg)}
+.tail-up::after{top:-10px;left:2.4rem;transform:rotate(225deg)}
+.ccap{position:absolute;top:0;left:0;z-index:3;max-width:80%;background:#ffe66d;color:#111;border:0 solid #111;border-width:0 3px 3px 0;padding:.28rem .8rem .2rem;
+  font:400 1rem/1.2 'Bangers','Lalezar',system-ui,sans-serif;letter-spacing:.05em;text-transform:uppercase}
+[dir=rtl] .ccap{font-family:'Lalezar','Cairo',sans-serif;letter-spacing:0}
+.sfx{position:absolute;z-index:4;top:.55rem;right:.7rem;width:94px;height:94px;display:grid;place-items:center;transform:rotate(-10deg);
+  filter:drop-shadow(2px 0 0 #111) drop-shadow(-2px 0 0 #111) drop-shadow(0 2px 0 #111) drop-shadow(0 -2px 0 #111) drop-shadow(4px 4px 0 rgba(0,0,0,.45));animation:sfxpop 1.8s ease-in-out infinite}
+.sfx::before{content:'';position:absolute;inset:0;background:#ff3d4e;clip-path:polygon(50.0% 0.0%,57.0% 14.7%,69.1% 3.8%,70.0% 20.1%,85.4% 14.6%,79.9% 30.0%,96.2% 30.9%,85.3% 43.0%,100.0% 50.0%,85.3% 57.0%,96.2% 69.1%,79.9% 70.0%,85.4% 85.4%,70.0% 79.9%,69.1% 96.2%,57.0% 85.3%,50.0% 100.0%,43.0% 85.3%,30.9% 96.2%,30.0% 79.9%,14.6% 85.4%,20.1% 70.0%,3.8% 69.1%,14.7% 57.0%,0.0% 50.0%,14.7% 43.0%,3.8% 30.9%,20.1% 30.0%,14.6% 14.6%,30.0% 20.1%,30.9% 3.8%,43.0% 14.7%)}
+.sfx span{position:relative;max-width:78%;text-align:center;color:#fff;font:400 1.15rem/1 'Bangers','Lalezar',system-ui,sans-serif;letter-spacing:.03em;text-shadow:2px 2px 0 #111}
+[dir=rtl] .sfx span{font-family:'Lalezar','Cairo',sans-serif;letter-spacing:0}
+.cpanel.duo .sfx{top:auto;bottom:.7rem;right:30%}
+.sfx.inflow{position:relative;top:auto;right:auto;align-self:flex-end;flex:none;margin-top:-.2rem}
+@keyframes sfxpop{0%,100%{transform:rotate(-10deg) scale(1)}50%{transform:rotate(-6deg) scale(1.08)}}
+
+/* ---------- replicas of the real buttons ---------- */
+.cdemo{display:flex;flex-direction:column;gap:.35rem;align-items:flex-start;pointer-events:none}
+.cdemo-label{font:700 .72rem/1 'Comic Neue','Cairo',sans-serif;color:#111;opacity:.8;text-transform:uppercase;letter-spacing:.06em}
+[dir=rtl] .cdemo-label{letter-spacing:0;text-transform:none;font-size:.8rem}
+.cdemo-items{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;direction:inherit}
+.demo-hl{position:relative}
+.demo-hl::after{content:'';position:absolute;inset:-6px;border:3px dashed #e63946;border-radius:inherit;pointer-events:none;animation:ringpulse 1.4s ease-in-out infinite}
+@keyframes ringpulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.06)}}
+.demo-photo{display:inline-grid;border-radius:50%;padding:2px;background:#fff;box-shadow:0 0 0 2.5px #f58220}
+.demo-check{display:inline-flex;align-items:center;gap:.4rem;background:#fff;border:2px solid #111;border-radius:10px;padding:.25rem .6rem;font:700 .9rem/1.2 'Comic Neue','Cairo',sans-serif;color:#111}
+.demo-check b{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:5px;background:#f58220;color:#fff;font-size:.7rem}
+.demo-field{display:inline-block;min-width:120px;padding:.4rem .8rem;border:1.5px solid #d5dded;border-radius:12px;background:#f8fafd;color:#7a879f;font:500 .85rem/1.2 inherit}
+.demo-stars{display:inline-block;padding:.25rem .7rem;background:#fff;border:2px solid #111;border-radius:10px;color:#f58220;font-size:1.1rem}
+.demo-stars small{color:#111;font:700 .85rem 'Comic Neue',sans-serif}
+
+/* ---------- controls ---------- */
+.comic-bar{display:flex;align-items:center;justify-content:space-between;gap:.8rem 1.2rem;flex-wrap:wrap}
+.comic-never{display:inline-flex;align-items:center;gap:.5rem;color:#e8ecff;font:700 .9rem/1.2 'Comic Neue','Cairo',sans-serif;cursor:pointer;user-select:none}
+.comic-never input{width:18px;height:18px;accent-color:#f58220}
+.comic-dots{display:flex;gap:.55rem}
+.dot{width:16px;height:16px;padding:0;border-radius:50%;border:3px solid #111;background:#fff;cursor:pointer;transition:transform .15s,background .15s}
+.dot.on{background:#f58220;transform:scale(1.3)}
+.comic-nav{display:flex;gap:.7rem}
+.cbtn{display:inline-flex;align-items:center;gap:.5rem;border:4px solid #111;border-radius:12px;background:#ffd23f;color:#111;padding:.5rem 1.3rem .4rem;font:400 1.25rem/1.1 'Bangers','Lalezar',system-ui,sans-serif;letter-spacing:.05em;box-shadow:5px 5px 0 #111;cursor:pointer;transition:transform .12s,box-shadow .12s,opacity .15s}
+[dir=rtl] .cbtn,[dir=rtl] .comic-skip,[dir=rtl] .comic-top{font-family:'Lalezar','Cairo',sans-serif;letter-spacing:0}
+.cbtn.go{background:#f58220;color:#fff;text-shadow:2px 2px 0 #111}
+.cbtn:hover:not(:disabled){transform:translate(-2px,-2px);box-shadow:7px 7px 0 #111}.cbtn:active:not(:disabled){transform:translate(4px,4px);box-shadow:1px 1px 0 #111}
+.cbtn:disabled{opacity:.4;cursor:not-allowed}
+.cbtn:focus-visible,.comic-skip:focus-visible,.dot:focus-visible{outline:4px solid #fff;outline-offset:3px}
+
+/* ---------- small screens ---------- */
+@media(max-width:760px){
+  .comic-overlay{padding:8px}
+  .cpage{padding:10px;box-shadow:6px 6px 0 #111}[dir=rtl] .cpage{box-shadow:-6px 6px 0 #111}
+  .cgrid{grid-template-columns:1fr;grid-template-areas:"p1" "p2" "p3"!important;grid-auto-rows:auto;gap:10px}
+  .cpanel{--ch:190px;min-height:210px}.cpanel.big{--ch:190px}
+  .cpanel.scene{min-height:270px}
+  .cpanel.duo{grid-template-columns:1fr 1fr;grid-template-areas:"l r" "t t";align-items:end}
+  .cpanel.duo .cchar.left{grid-area:l}.cpanel.duo .cchar.right{grid-area:r}.cpanel.duo .ctext{grid-area:t;padding:.9rem}
+  .cpanel.duo .cchar img{height:160px}
+  .comic-bar{justify-content:center}.comic-never{order:3;width:100%;justify-content:center}
+  .cbtn{font-size:1.1rem;padding:.45rem 1rem .35rem}
+}
+@media(prefers-reduced-motion:reduce){.cpage,.sfx,.demo-hl::after,.comic-overlay{animation:none!important}}
+
+.cdemo-items .chip{padding:.28rem .7rem;font-size:.8rem}
