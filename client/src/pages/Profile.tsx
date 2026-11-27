@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { useAuth } from '../auth'; import { api } from '../api';
-import { Avatar } from '../Avatar'; import { Tilt } from '../Tilt'; import { AffChips } from '../AffChips';
+import { Avatar } from '../AvatarComponent'; import { Tilt } from '../Tilt'; import { AffChips } from '../AffChips';
 import { worksAlone } from '../affiliation';
 import { Keys, useI18n } from '../i18n';
 

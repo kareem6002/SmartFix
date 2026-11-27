@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api, statusColor } from '../api';
-import { useAuth } from '../auth'; import { Avatar } from '../Avatar'; import { Tilt } from '../Tilt';
+import { useAuth } from '../auth'; import { Avatar } from '../AvatarComponent'; import { Tilt } from '../Tilt';
 import { Keys, useI18n } from '../i18n'; import { RequestPhotos } from '../RequestPhotos'; import { AffChips } from '../AffChips';
 
 const Stars = ({ n }: { n: number }) => <span title={`${n.toFixed(1)}/5`} dir="ltr">{'★'.repeat(Math.round(n))}{'☆'.repeat(5 - Math.round(n))}</span>;

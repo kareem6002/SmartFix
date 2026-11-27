@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { api } from '../api';
-import { Avatar } from '../Avatar';
+import { Avatar } from '../AvatarComponent';
 import { useAuth } from '../auth';
 import { Keys, useI18n } from '../i18n';
 
