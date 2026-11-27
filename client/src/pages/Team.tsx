@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
 import { useAuth } from '../auth';
-import { Avatar } from '../Avatar';
+import { Avatar } from '../AvatarComponent';
 import { Keys, useI18n } from '../i18n';
 
 export function Team() {

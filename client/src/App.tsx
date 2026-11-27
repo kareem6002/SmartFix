@@ -1,7 +1,7 @@
 import { Link, NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useAuth, Role } from './auth';
-import { Avatar } from './Avatar';
+import { Avatar } from from './AvatarComponent';
 import { Logo } from './Logo';
 import { BackgroundFX } from './BackgroundFX';
 import { ComicGuide } from './comic/ComicGuide';

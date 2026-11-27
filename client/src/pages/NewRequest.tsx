@@ -2,7 +2,7 @@ import { DragEvent, FormEvent, useEffect, useMemo, useRef, useState } from 'reac
 import { useNavigate } from 'react-router-dom';
 import './newrequest.css';
 import { api } from '../api';
-import { Avatar } from '../Avatar';
+import { Avatar } from '../AvatarComponent';
 import { Tilt } from '../Tilt'; import { AffChips } from '../AffChips';
 import { Keys, useI18n } from '../i18n';
 import { ICONS } from './Customer';

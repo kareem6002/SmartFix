@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './comic.css';
 import { useAuth } from '../auth';
-import { Avatar } from '../Avatar';
+import { Avatar } from '../AvatarComponent';
 import { useI18n } from '../i18n';
 import { BubbleDef, Demo, PanelDef, STORY, Who } from './story';
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api, statusColor } from '../api';
-import { Avatar } from '../Avatar';
+import { Avatar } from '../AvatarComponent';
 import { Keys, useI18n } from '../i18n'; import { RequestPhotos } from '../RequestPhotos';
 const NEXT: Record<string, [string, Keys][]> = {
   pending: [['accepted', 'act.accept'], ['rejected', 'act.reject']], accepted: [['in_progress', 'act.start']], in_progress: [['completed', 'act.complete']],

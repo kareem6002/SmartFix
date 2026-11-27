@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api, statusColor } from '../api';
-import { Avatar } from '../Avatar';
+import { Avatar } from '../AvatarComponent';
 import { Keys, useI18n } from '../i18n';
 export function AdminDashboard() {
   const { t, tc, ts, date } = useI18n();
